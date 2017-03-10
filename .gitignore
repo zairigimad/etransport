@@ -5,7 +5,6 @@
 /var/logs/*
 !var/logs/.gitkeep
 /var/phpunit.xml
-/bin/
 /composer.phar
 /vendor/
 /web/bundles/
