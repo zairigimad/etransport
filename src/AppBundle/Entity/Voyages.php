@@ -35,6 +35,23 @@ class Voyages
      */
     private $dateFin;
 
+    /** 
+     * @ORM\ManyToOne(targetEntity="Trajet", inversedBy="type")
+     * @ORM\JoinColumn(name="trajet_id", referencedColumnName="id")
+     */
+    private $trajet;
+
+    /** 
+     * @ORM\ManyToOne(targetEntity="Vehicule")
+     * @ORM\JoinColumn(name="vehicule_id", referencedColumnName="id")
+     */
+    private $vehicule;
+
+    /** 
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="chauffeur_id", referencedColumnName="id")
+     */
+    private $chauffeur;
 
     /**
      * Get id

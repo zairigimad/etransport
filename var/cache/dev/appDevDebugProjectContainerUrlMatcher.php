@@ -105,6 +105,68 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
+        if (0 === strpos($pathinfo, '/client')) {
+            // client_index
+            if (rtrim($pathinfo, '/') === '/client') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_client_index;
+                }
+
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'client_index');
+                }
+
+                return array (  '_controller' => 'AppBundle\\Controller\\ClientController::indexAction',  '_route' => 'client_index',);
+            }
+            not_client_index:
+
+            // client_new
+            if ($pathinfo === '/client/new') {
+                if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                    goto not_client_new;
+                }
+
+                return array (  '_controller' => 'AppBundle\\Controller\\ClientController::newAction',  '_route' => 'client_new',);
+            }
+            not_client_new:
+
+            // client_show
+            if (preg_match('#^/client/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_client_show;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'client_show')), array (  '_controller' => 'AppBundle\\Controller\\ClientController::showAction',));
+            }
+            not_client_show:
+
+            // client_edit
+            if (preg_match('#^/client/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                    goto not_client_edit;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'client_edit')), array (  '_controller' => 'AppBundle\\Controller\\ClientController::editAction',));
+            }
+            not_client_edit:
+
+            // client_delete
+            if (preg_match('#^/client/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'DELETE') {
+                    $allow[] = 'DELETE';
+                    goto not_client_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'client_delete')), array (  '_controller' => 'AppBundle\\Controller\\ClientController::deleteAction',));
+            }
+            not_client_delete:
+
+        }
+
         // homepage
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
@@ -112,6 +174,68 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             }
 
             return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
+        }
+
+        if (0 === strpos($pathinfo, '/vehicule')) {
+            // vehicule_index
+            if (rtrim($pathinfo, '/') === '/vehicule') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_vehicule_index;
+                }
+
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'vehicule_index');
+                }
+
+                return array (  '_controller' => 'AppBundle\\Controller\\VehiculeController::indexAction',  '_route' => 'vehicule_index',);
+            }
+            not_vehicule_index:
+
+            // vehicule_new
+            if ($pathinfo === '/vehicule/new') {
+                if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                    goto not_vehicule_new;
+                }
+
+                return array (  '_controller' => 'AppBundle\\Controller\\VehiculeController::newAction',  '_route' => 'vehicule_new',);
+            }
+            not_vehicule_new:
+
+            // vehicule_show
+            if (preg_match('#^/vehicule/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_vehicule_show;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'vehicule_show')), array (  '_controller' => 'AppBundle\\Controller\\VehiculeController::showAction',));
+            }
+            not_vehicule_show:
+
+            // vehicule_edit
+            if (preg_match('#^/vehicule/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                    goto not_vehicule_edit;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'vehicule_edit')), array (  '_controller' => 'AppBundle\\Controller\\VehiculeController::editAction',));
+            }
+            not_vehicule_edit:
+
+            // vehicule_delete
+            if (preg_match('#^/vehicule/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if ($this->context->getMethod() != 'DELETE') {
+                    $allow[] = 'DELETE';
+                    goto not_vehicule_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'vehicule_delete')), array (  '_controller' => 'AppBundle\\Controller\\VehiculeController::deleteAction',));
+            }
+            not_vehicule_delete:
+
         }
 
         if (0 === strpos($pathinfo, '/log')) {

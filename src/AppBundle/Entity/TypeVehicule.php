@@ -28,7 +28,6 @@ class TypeVehicule
      */
     private $libelle;
 
-
     /**
      * Get id
      *

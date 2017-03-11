@@ -42,6 +42,11 @@ class Vehicule
      */
     private $matricule;
 
+    /** 
+     * @ORM\ManyToOne(targetEntity="TypeVehicule")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     */
+    private $type;
 
     /**
      * Get id
