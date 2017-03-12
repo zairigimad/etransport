@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+        
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {% block navigation %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% block content %}
+    <h1>Liste des utilisateurs</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>username</th>
+                <th>email</th>
+                <th>derniere connexion</th>
+                <th>Roles</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.lastLogin|date('Y-m-d') }}</td>
+                <td>{{ user.roles|first }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="#">Voir</a>
+                        </li>
+                        <li>
+                            <a href="#">Modifier</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
